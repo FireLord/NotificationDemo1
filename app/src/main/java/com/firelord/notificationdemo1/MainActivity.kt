@@ -41,6 +41,19 @@ class MainActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        // action button 1
+        val intent2 = Intent(this,DetailsActivity::class.java)
+        val pendingIntent2:PendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent2,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val action2 : NotificationCompat.Action =
+            NotificationCompat.Action.Builder(0,"Details",pendingIntent2)
+                .build()
+
         val notification = NotificationCompat.Builder(this@MainActivity,channelID)
             .setContentTitle("Demo Title")
             .setContentText("This is demo notification")
@@ -48,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             .setAutoCancel(true)
             .setPriority(Notification.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
+            .addAction(action2)
             .build()
         notificationManager?.notify(notificationId,notification)
     }
