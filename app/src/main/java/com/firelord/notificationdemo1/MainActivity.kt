@@ -54,6 +54,19 @@ class MainActivity : AppCompatActivity() {
             NotificationCompat.Action.Builder(0,"Details",pendingIntent2)
                 .build()
 
+        // action button 2
+        val intent3 = Intent(this,SettingsActivity::class.java)
+        val pendingIntent3:PendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent3,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val action3 : NotificationCompat.Action =
+            NotificationCompat.Action.Builder(0,"Settings",pendingIntent3)
+                .build()
+
         val notification = NotificationCompat.Builder(this@MainActivity,channelID)
             .setContentTitle("Demo Title")
             .setContentText("This is demo notification")
@@ -62,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             .setPriority(Notification.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .addAction(action2)
+            .addAction(action3)
             .build()
         notificationManager?.notify(notificationId,notification)
     }
