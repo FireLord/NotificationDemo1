@@ -1,5 +1,4 @@
 package com.firelord.notificationdemo1
-
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,8 +8,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.core.app.NotificationCompat
+import androidx.core.app.RemoteInput
 import androidx.databinding.DataBindingUtil
 import com.firelord.notificationdemo1.databinding.ActivityMainBinding
 
@@ -19,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val channelID = "com.firelord.notificationdemo1.channel1"
     private var notificationManager : NotificationManager? = null
+    private var KEY_REPLY = "key_reply"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,19 @@ class MainActivity : AppCompatActivity() {
             tapResultIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
+
+        // reply action
+        val remoteInput:RemoteInput = RemoteInput.Builder(KEY_REPLY).run {
+            setLabel("Insert your name here")
+            build()
+        }
+
+        val replyAction : NotificationCompat.Action = NotificationCompat.Action.Builder(
+            0,
+            "REPLY",
+            pendingIntent
+        ).addRemoteInput(remoteInput)
+            .build()
 
         // action button 1
         val intent2 = Intent(this,DetailsActivity::class.java)
@@ -76,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             .setContentIntent(pendingIntent)
             .addAction(action2)
             .addAction(action3)
+            .addAction(replyAction)
             .build()
         notificationManager?.notify(notificationId,notification)
     }
