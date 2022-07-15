@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val channelID = "com.firelord.notificationdemo1.channel1"
     private var notificationManager : NotificationManager? = null
-    private var KEY_REPLY = "key_reply"
+    private val KEY_REPLY = "key_reply"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
